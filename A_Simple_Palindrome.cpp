@@ -1,25 +1,53 @@
-#include<bits/stdc++.h>
-using namespace std ;
-int main ()
+#include <bits/stdc++.h>
+using namespace std;
+
+#define fr(i, n) for (lli i = 0; i < n; i++)
+#define pb push_back
+#define sz(x) x.size()
+#define ff first
+#define ss second
+#define all(v) v.begin(), v.end()
+#define debug(x) cout << '>' << #x << ':' << x << endl;
+
+using lli = long long int;
+using ld = long double;
+using ii = pair<lli, lli>;
+using vii = vector<ii>;
+using vi = vector<lli>;
+using bl = bool;
+using mp = map<lli, lli>;
+using ump = unordered_map<lli, lli>;
+using str = string;
+
+#pragma GCC optimize("unroll-loops,O3,Ofast")
+#pragma GCC target("avx2,avx,fma,bmi,bmi2,lzcnt,popcnt")
+
+int main()
 {
-    int t;
-    cin>>t;
-    vector<char>vowels={ 'u' , 'o' , 'i' , 'e' , 'a'};
-        int vowelindex=0;
-        for(int i=0 ; i< t ; i++)
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    lli t;
+    cin >> t;
+
+    while (t--)
+    {
+        string VOWELS = "aeiou";
+        int n;
+        cin >> n;
+        vector<int> v(5, n / 5);
+        for (int i = 0; i < n % 5; i++)
         {
-        int n ;
-        cin>>n;
-        string result="";
-        for(int j=0 ; j<n; j++)
+            v[i]++;
+        }
+        for (int i = 0; i < 5; i++)
         {
-           result+=vowels[vowelindex];
-           vowelindex=(vowelindex+1)%5;
-            if ((i + 1) % 3 == 0 && i != 5) {
+            for (int j = 0; j < v[i]; j++)
+            {
+                cout << VOWELS[i];
             }
         }
-         cout<<result<<endl;
-        }
-
-
+        cout << endl;
     }
+    return 0;
+}

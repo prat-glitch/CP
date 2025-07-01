@@ -1,32 +1,26 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
-int main() 
-{
-	int T;
-	cin>>T;
-	int mini=INT_MAX;
-	while(T--)
-	{
-	    int X;
-	    cin>>X;
-	    int Y;
-	    cin>>Y;
-	    int cnt=0;
-	    while(X>=2*Y || Y>=2*X)
-	    {
-	        if(X>=2*Y)
-	        {
-	            --Y;
-	        }
-	        else
-	        {
-	            --X;
-	        }
-	        cnt++;
-	        mini=min(mini, cnt); // Update mini inside the loop
-	    }
-	}
-	cout<<mini<<endl;
-	return 0;
-}
+class Solution{
+	public:
+	int MinimumCoins(vector<int>& coins, int amount) {
+      int n=coins.size();
+      int cnt=0;
+      for(int i=n-1;i>=0;i--)
+      {
+        while(coins[i]<=amount)
+        {
+            amount-=coins[i];
+            cnt++;
+        }
+      }
+      cout<<cnt<<endl;
+    }
+    int main()
+    {
+      int n;
+      cin>>n;
+      vector<int>coins(n);
+      int amount;
+      cout<<MinimumCoins(coins, amount);
+    }
+};
