@@ -34,34 +34,40 @@ int main()
     {
         lli n;
         cin>>n;
-        vector<lli>a(n);
-        for(lli i =0;i<n; i++)
+        vector<lli>a(n+1);
+        for(lli i=1;i<=n; i++)
         {
             cin>>a[i];
         }
-        vector<lli>ans(n+1,0);
-        vector<pair<lli,lli>>build;
-        for(lli i=0;i<n; i++)
+        lli oddgcd=0;
+        lli evengcd=0;
+        bool odd=true;
+        bool even=true;
+        if(n==1)cout<<a[1]<<endl;
+        for(lli i=1;i<=n; i++)
         {
-            build.push_back({a[i], i});
+            if(i%2==0)evengcd=__gcd(evengcd,a[i]);
+            else oddgcd=__gcd(oddgcd,a[i]);
         }
-        sort(build.rbegin(), build.rend());
-        ans[0]=0;
-        lli mint=0;
-        lli coord=1;
-        for(lli i=0;i<n; i++)
+        for(lli i=1;i<=n; i+=2)
         {
-            ans[build[i].second+1]=coord;
-            mint+=2*(abs(coord))*build[i].first;
-            if(coord<0)coord=abs(coord)+1;
-            else coord=-coord;
+            if(a[i]%evengcd==0)
+            {
+                even=false;
+                break;
+            }
         }
-        cout<<mint<<endl;
-        for(auto it:ans)
+        for(lli i=2;i<=n; i+=2)
         {
-            cout<<it<<" ";
+            if(a[i]%oddgcd==0)
+            {
+                odd=false;
+                break;
+            }
         }
-        cout<<endl;
+        if(odd)cout<<oddgcd<<endl;
+        else if(even)cout<<evengcd<<endl;
+        else cout<<0<<endl;
     }
 
     return 0;

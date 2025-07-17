@@ -21,7 +21,30 @@ using str = string;
 
 #pragma GCC optimize("unroll-loops,O3,Ofast")
 #pragma GCC target("avx2,avx,fma,bmi,bmi2,lzcnt,popcnt")
-
+void solve()
+{
+    lli n,k;
+    cin>>n>>k;
+    vector<lli>a(n);
+    for(lli i=0;i<n; i++)
+    {
+     cin>>a[i];
+    }
+    map<lli , lli>ok;
+    for(auto it:a)
+    {
+      ok[it]=1;
+    }
+    for(lli i=0;i<n; i++)
+    {
+     if(ok.find(a[i]-k)!=ok.end())
+     {
+         cout<<"YES"<<endl;
+        return ;
+     }
+    }
+    cout<<"NO"<<endl;
+}
 int main()
 {
     ios::sync_with_stdio(false);
@@ -32,36 +55,7 @@ int main()
 
     while (t--)
     {
-        lli n;
-        cin>>n;
-        vector<lli>a(n);
-        for(lli i =0;i<n; i++)
-        {
-            cin>>a[i];
-        }
-        vector<lli>ans(n+1,0);
-        vector<pair<lli,lli>>build;
-        for(lli i=0;i<n; i++)
-        {
-            build.push_back({a[i], i});
-        }
-        sort(build.rbegin(), build.rend());
-        ans[0]=0;
-        lli mint=0;
-        lli coord=1;
-        for(lli i=0;i<n; i++)
-        {
-            ans[build[i].second+1]=coord;
-            mint+=2*(abs(coord))*build[i].first;
-            if(coord<0)coord=abs(coord)+1;
-            else coord=-coord;
-        }
-        cout<<mint<<endl;
-        for(auto it:ans)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
+      solve();
     }
 
     return 0;

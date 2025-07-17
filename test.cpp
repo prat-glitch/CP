@@ -1,26 +1,36 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
-class Solution{
-	public:
-	int MinimumCoins(vector<int>& coins, int amount) {
-      int n=coins.size();
-      int cnt=0;
-      for(int i=n-1;i>=0;i--)
-      {
-        while(coins[i]<=amount)
-        {
-            amount-=coins[i];
-            cnt++;
+
+void solve(int i, vector<int>& ds, int s, int arr[], int sum, int n)
+{
+    if (i == n) {
+        if (s == sum) {
+            for (auto it : ds) cout << it << " ";
+            cout << endl;
         }
-      }
-      cout<<cnt<<endl;
+        return;
     }
-    int main()
-    {
-      int n;
-      cin>>n;
-      vector<int>coins(n);
-      int amount;
-      cout<<MinimumCoins(coins, amount);
-    }
-};
+
+    // pick
+    ds.push_back(arr[i]);
+    s += arr[i];
+    solve(i + 1, ds, s, arr, sum, n);
+
+    // backtrack
+    s -= arr[i];
+    ds.pop_back();
+
+    // not pick
+    solve(i + 1, ds, s, arr, sum, n);
+}
+
+int main()
+{
+    int arr[] = {1, 2, 1};
+    int n = 3;
+    vector<int> ds;
+    int sum = 2;
+    solve(0, ds, 0, arr, sum, n);
+    return 0;
+}

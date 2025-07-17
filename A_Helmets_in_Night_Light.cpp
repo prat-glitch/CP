@@ -1,23 +1,57 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-    int t;
+int main()
+{
+    long long t;
     cin >> t;
-    while (t--) {
-        int64_t i, n, p, c = 1, ans;
+    while (t--)
+    {
+        long long n, p;
         cin >> n >> p;
-        ans = p;
-        vector<pair<int64_t, int64_t>> l(n);
-        for (i = 0; i < n; i++) cin >> l[i].second;
-        for (i = 0; i < n; i++) cin >> l[i].first;
-        sort(l.begin(), l.end());
-        for (auto [f, s] : l) {
-            if (f > p) break;
-            ans += f * min(s, n - c);
-            c += min(s, n - c);
+        vector<pair<long long, long long> > v(n);
+        vector<long long> a(n), b(n);
+
+        for (int i = 0; i < n; i++) // n
+            cin >> a[i];
+
+        for (int i = 0; i < n; i++) // n
+            cin >> b[i];
+
+        for (int i = 0; i < n; i++) // n
+            v[i] = {b[i], a[i]};
+
+        sort(v.begin(), v.end()); // nlogn
+
+        long long minimum_cost = p;
+        long long already_shared = 1;
+
+        for (auto it : v) // n
+        {
+            long long can_be_shared = it.second;
+            long long sharing_cost = it.first;
+
+            if (sharing_cost >= p)
+                break;
+
+            if (already_shared + can_be_shared > n)
+            {
+                minimum_cost += (n - already_shared) * sharing_cost;
+                already_shared = n;
+                break;
+            }
+            else
+            {
+                minimum_cost += can_be_shared * sharing_cost;
+                already_shared += can_be_shared;
+            }
         }
-        ans += (n - c) * p;
-        cout << ans << endl;
+
+        minimum_cost += (n - already_shared) * p; // chief sharing
+        cout << minimum_cost << endl;
     }
+    return 0;
 }
+
+// TC - O(nlogn) = O(10^5(log2(10^5))) = O(10^5 * 17) = O(1.7 * 10^6)
+// SC - O(n) = O(10^5)

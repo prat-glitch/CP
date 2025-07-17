@@ -40,19 +40,19 @@ int main()
         cin >> s;
         s+=s;
         n*=2;
-        lli gi=-1;
+        lli green=-1;
         lli maxi=LLONG_MIN;
-        for( lli i =n-1 ;i>=0 ; i--)
+        for(lli i=n-1;i>=0;i--)
         {
-           if(s[i]=='g')
-           {
-             gi=i;
-           }
-           if(s[i]==c)
-           {
-            lli diff=gi-i;
+          if(s[i]=='g')
+          {
+            green=i;
+          }
+          if(s[i]==c)
+          {
+            lli diff=green-i;
             maxi=max(maxi,diff);
-           }
+          }
         }
         cout<<maxi<<endl;
     }

@@ -35,33 +35,34 @@ int main()
         lli n;
         cin>>n;
         vector<lli>a(n);
-        for(lli i =0;i<n; i++)
+        for(lli i=0;i<n; i++)
         {
             cin>>a[i];
         }
-        vector<lli>ans(n+1,0);
-        vector<pair<lli,lli>>build;
-        for(lli i=0;i<n; i++)
+        lli i=0;
+        lli j=n-1;
+        lli p=a[i];
+        lli b=a[j];
+        lli ans=0;
+        while(i<j)
         {
-            build.push_back({a[i], i});
+           if(p==b)
+           {
+            ans=max(ans,i+1+n-j);
+           }
+           if(p<=b)
+           {
+            i++;
+            p+=a[i];
+           }
+           else if(p>=b)
+           {
+            j--;
+            b+=a[j];
+           }
         }
-        sort(build.rbegin(), build.rend());
-        ans[0]=0;
-        lli mint=0;
-        lli coord=1;
-        for(lli i=0;i<n; i++)
-        {
-            ans[build[i].second+1]=coord;
-            mint+=2*(abs(coord))*build[i].first;
-            if(coord<0)coord=abs(coord)+1;
-            else coord=-coord;
-        }
-        cout<<mint<<endl;
-        for(auto it:ans)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
+        cout<<ans<<endl;
+        
     }
 
     return 0;

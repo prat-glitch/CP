@@ -1,54 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define fr(i, n) for (lli i = 0; i < n; i++)
-#define pb push_back
-#define sz(x) x.size()
-#define ff first
-#define ss second
-#define all(v) v.begin(), v.end()
-#define debug(x) cout << '>' << #x << ':' << x << endl;
+#define lli long long
 
-using lli = long long int;
-using ld = long double;
-using ii = pair<lli, lli>;
-using vii = vector<ii>;
-using vi = vector<lli>;
-using bl = bool;
-using mp = map<lli, lli>;
-using ump = unordered_map<lli, lli>;
-using str = string;
+int count_substr(const string &s, const string &pattern) {
+    int count = 0;
+    for (int i = 0; i + 1 < s.size(); ++i) {
+        if (s.substr(i, 2) == pattern) count++;
+    }
+    return count;
+}
 
-#pragma GCC optimize("unroll-loops,O3,Ofast")
-#pragma GCC target("avx2,avx,fma,bmi,bmi2,lzcnt,popcnt")
-
-int main()
-{
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    lli t;
+    int t;
     cin >> t;
+    while (t--) {
+        string s;
+        cin >> s;
 
-    while (t--)
-    {
-       string s ;
-       cin>>s;
-       int n =s.size();
-       int cnt =0;
-       for(int i =0 ; i< n ; i++)
-       {
-        if(s[i]==s[n-1])cnt=0;
-        else if(s[i]!=s[n-1])
-        {
-            cnt=1;
-            s[0]=s[n-1];
+        int ab = count_substr(s, "ab");
+        int ba = count_substr(s, "ba");
+        
+
+        if (ab == ba) {
+            cout << s << "\n";
+        } else {
+            // Change the first character to make ab == ba
+            s[0] = (s[0] == 'a') ? 'b' : 'a';
+            // Now count again
+            ab = count_substr(s, "ab");
+            ba = count_substr(s, "ba");
+
+            // if still not equal, change the last character
+            if (ab != ba) {
+                s[0] = (s[0] == 'a') ? 'b' : 'a'; // revert
+                s[s.size() - 1] = (s[s.size() - 1] == 'a') ? 'b' : 'a';
+            }
+            cout << s << "\n";
         }
-       }
-       if(cnt==0)cout<<s<<endl;
-       else if(cnt==1){
-         cout<<s<<endl;
-       }
     }
 
     return 0;

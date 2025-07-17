@@ -21,7 +21,21 @@ using str = string;
 
 #pragma GCC optimize("unroll-loops,O3,Ofast")
 #pragma GCC target("avx2,avx,fma,bmi,bmi2,lzcnt,popcnt")
-
+bool is( lli n)
+{
+      
+       lli num=n;
+       while(num>0)
+       {
+         lli x= num%10;
+         if(x!=0 && n%x!=0)
+         {
+            return false;
+         }
+         num/=10;
+       }
+       return true;
+}
 int main()
 {
     ios::sync_with_stdio(false);
@@ -32,21 +46,10 @@ int main()
 
     while (t--)
     {
-        lli n ;
-        cin>>n;
-        lli a , p , k;
-        k=n;
-        while(k>0)
-        {
-            a=k%10;
-            k=k/10;
-            if(a>0 && n%a!=0)
-            {
-                n++;
-                k=n;
-            }
-        }
-        cout<<n<<endl;
+       lli n;
+       cin>>n;
+       while(!is(n))n++;
+       cout<<n<<endl;
     }
 
     return 0;

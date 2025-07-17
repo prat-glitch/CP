@@ -22,28 +22,34 @@ using str = string;
 #pragma GCC optimize("unroll-loops,O3,Ofast")
 #pragma GCC target("avx2,avx,fma,bmi,bmi2,lzcnt,popcnt")
 
-int main()
-{
+// ✅ Corrected GCD function
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
     lli t;
     cin >> t;
 
-    while (t--)
-    {
-       lli n ;
-       cin>>n;
-       lli x=1;
-       for(lli i=2; i<=sqrt(n); i++)
-       {
-        if(n%i==0)
-        {
-          x=n/i;
-          break;
+    while (t--) {
+        lli n;
+        cin >> n;
+
+        int ans=1;
+        for (int i = 1; i < n; i++) {
+            int curr= gcd(i, n - i);
+            if(curr>ans)ans=curr;
         }
-       }
-       cout<<x<<" "<<n-x<<endl;
+
+        cout << ans<< " " << (n - ans) << '\n';
     }
 
     return 0;
